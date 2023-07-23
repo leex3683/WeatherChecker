@@ -7,19 +7,38 @@ let todayTempEl = document.querySelector('.today-temp');
 let todayWindEl = document.querySelector('.today-wind');
 let todayHumidityEl = document.querySelector('.today-humidity');
 let todayPicEl = document.querySelector('.today-pic');
+let hist0 = document.querySelector('.a0');
+let hist1 = document.querySelector('.a1');
+let hist2 = document.querySelector('.a2');
+let hist3 = document.querySelector('.a3');
+let hist4 = document.querySelector('.a4');
+let buttonElh = $('.dropdown-item');
+
+buttonElh.on('click', function(){
+
+  console.log( $(this).text())
+ 
+
+})
+
+
+let store = [];
 
 today = dayjs();
 // console.log(today.add(1,'day').format('dddd, MMMM, D'));
 
 buttonEl.addEventListener("click", function () {
+
+  storeSearches()
+
   let requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputElSearch.value + '&appid=f1bb294bcd5a2c18f9c57262deef0ea8'
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log('Fetch Response \n-------------');
-      console.log(data.list);
+      // console.log('Fetch Response \n-------------');
+      // console.log(data.list);
 
       //wipe forecast cards
       sectionElForecast.textContent = "";
@@ -69,28 +88,58 @@ buttonEl.addEventListener("click", function () {
             };
           }
         }
-
       }
-
-
-
-
     });
-
-
-
-
-
-
 });
 
 
 
 
 
+function storeSearches() {
+  //check if local storage is null or undefined. If so, setup a blank array 'store' and push first item to it
+  if (JSON.parse(localStorage.getItem("history")) === undefined || JSON.parse(localStorage.getItem("history")) === null) {
+
+    store =[];
+    store.push(inputElSearch.value);
+    localStorage.setItem("history", JSON.stringify(store));
+
+    //If the value is already in the array ignore it
+  } else if (JSON.parse(localStorage.getItem("history")).includes(inputElSearch.value)) {
+
+    return;
+    //we're only storing the last 5 unique values searched
+  } else if (JSON.parse(localStorage.getItem("history")).length < 5) {
+
+    store.push(inputElSearch.value);
+    localStorage.setItem("history", JSON.stringify(store));
+  } else {
+
+    store.shift();
+    store.push(inputElSearch.value);
+    localStorage.setItem("history", JSON.stringify(store));
+  }
+  grabValues();
+}
 
 
+//places local storage in an array 'store' if exists
+function grabValues() {
 
+  if (JSON.parse(localStorage.getItem("history")) === undefined || JSON.parse(localStorage.getItem("history")) === null) {
+console.log("null")
+    return;
+  } else {
 
+    store = JSON.parse(localStorage.getItem("history"));
 
+      hist0.textContent = JSON.parse(localStorage.getItem("history"))[0];
+      hist1.textContent =JSON.parse(localStorage.getItem("history"))[1];
+      hist2.textContent =JSON.parse(localStorage.getItem("history"))[2];
+      hist3.textContent =JSON.parse(localStorage.getItem("history"))[3];
+      hist4.textContent =JSON.parse(localStorage.getItem("history"))[4];
+}
+}
+
+grabValues();
 
