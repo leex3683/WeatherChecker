@@ -18,7 +18,7 @@ today = dayjs();
 
 //Clicking drop down options pulls weather from API
 buttonElh.on('click', function () {
-
+  let histSearch = $(this).text()
   let requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + $(this).text() + '&appid=f1bb294bcd5a2c18f9c57262deef0ea8'
   fetch(requestUrl)
     .then(function (response) {
@@ -35,7 +35,7 @@ buttonElh.on('click', function () {
           if (j == 0 && i == 0) {
             //Create Today's weather card (j = 0)
             let h4El = document.createElement('h4');
-            weatherHeaderEl.appendChild(h4El).textContent = inputElSearch.value + " | " + data.list[i].dt_txt;
+            weatherHeaderEl.appendChild(h4El).textContent = histSearch + " | " + data.list[i].dt_txt;
             todayTempEl.textContent = "Temp: " + Math.round((data.list[i].main.temp - 273.15) * (9 / 5) + 32) + "°F";
             todayWindEl.textContent = "wind: " + data.list[i].wind.speed + " MPH";
             todayHumidityEl.textContent = "humidity: " + data.list[i].main.humidity + '%';
