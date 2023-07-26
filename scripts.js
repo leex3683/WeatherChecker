@@ -19,10 +19,7 @@ today = dayjs();
 //Clicking drop down options pulls weather from API
 buttonElh.on('click', function () {
 
-
-
-
-    let requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + $(this).text() + '&appid=f1bb294bcd5a2c18f9c57262deef0ea8'
+  let requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + $(this).text() + '&appid=f1bb294bcd5a2c18f9c57262deef0ea8'
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -32,7 +29,7 @@ buttonElh.on('click', function () {
       sectionElForecast.textContent = "";
       weatherHeaderEl.textContent = '';
       todayPicEl.textContent = '';
-
+      console.log(data)
       for (let i = 0; i < data.list.length; i++) {
         for (let j = 0; j < 6; j++) {
           if (j == 0 && i == 0) {
@@ -78,12 +75,15 @@ buttonElh.on('click', function () {
         }
       }
     })
- 
+    .catch(function () {
+      alert("Please enter a valid city");
+    })
 })
 
 //clicking the submit button also pulls weather from API
 buttonEl.addEventListener("click", function () {
 
+  
   storeSearches()
 
   let requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputElSearch.value + '&appid=f1bb294bcd5a2c18f9c57262deef0ea8'
@@ -144,12 +144,12 @@ buttonEl.addEventListener("click", function () {
           }
         }
       }
-    });
+      
+    })
+    .catch (function() {
+      alert("Please enter a valid city");
+    })    
 });
-
-
-
-
 
 function storeSearches() {
   //check if local storage is null or undefined. If so, setup a blank array 'store' and push first item to it
@@ -176,7 +176,6 @@ function storeSearches() {
   }
   grabValues();
 }
-
 
 //places local storage in an array 'store' if exists
 function grabValues() {
