@@ -65,7 +65,7 @@ buttonElh.on('click', function () {
               divEl1.appendChild(divChEl1).textContent = data.list[i].dt_txt;
               divEl1.appendChild(divChEl2);
               sectionElForecast.appendChild(divEl1);
-              divEl1.setAttribute('class', 'card bg-light mb-3');
+              divEl1.setAttribute('class', 'card bg-light mb-3 ');
               divChEl1.setAttribute('class', 'card-header');
               divEl1.setAttribute('style', 'max-width: 18rem;');
               divChEl2.setAttribute('class', 'card-body');
