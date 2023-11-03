@@ -42,12 +42,10 @@ buttonElh.on('click', function () {
             let imgEl = document.createElement('img');
             imgEl.setAttribute('src', 'https://openweathermap.org/img/wn/' + data.list[i].weather[0].icon + '@2x.png');
             imgEl.setAttribute('alt', 'weather icon');
-            todayPicEl.appendChild(imgEl);  
-   
+            todayPicEl.appendChild(imgEl);
           }
           else {
-          console.log(today.add(j, 'day').format('YYYY-MM-DD'))
-            if (data.list[i].dt_txt.includes(today.add(j, 'day').format('YYYY-MM-DD')) && data.list[i].dt_txt.includes('03:00:00')) {
+            if (data.list[i].dt_txt.includes(today.add(j, 'day').format('YYYY-MM-D')) && data.list[i].dt_txt.includes('12:00:00')) {
               //create forecast cards (j = [1,6])
               let divEl1 = document.createElement('div');
               let divChEl1 = document.createElement('div');
@@ -117,9 +115,8 @@ buttonEl.addEventListener("click", function () {
             todayPicEl.appendChild(imgEl);
           }
           else {
-            if (data.list[i].dt_txt.includes(today.add(j, 'day').format('YYYY-MM-DD')) && data.list[i].dt_txt.includes('06:00:00')) {
+            if (data.list[i].dt_txt.includes(today.add(j, 'day').format('YYYY-MM-D')) && data.list[i].dt_txt.includes('12:00:00')) {
               //create forecast cards (j = [1,6])
-              console.log('creating past week')
               let divEl1 = document.createElement('div');
               let divChEl1 = document.createElement('div');
               let divChEl2 = document.createElement('div');
